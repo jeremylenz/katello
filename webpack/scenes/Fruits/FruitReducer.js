@@ -9,6 +9,23 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case GET_FRUITS_SUCCESS:
-      return Object.
+      return state.merge({
+        loading: false,
+      });
+    case GET_FRUITS_REQUEST:
+      return state.merge({
+        loading: true,
+      });
+    case GET_FRUITS_FAILURE:
+      return state.merge({
+        loading: false,
+        error: action.error,
+      });
+    case SET_FRUITS:
+      return state.merge({
+        results: action.payload,
+      });
+    default:
+      return state;
   }
-}
+};
