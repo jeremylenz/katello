@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchFruits } from './FruitActions';
+import * as fruitActions from './FruitActions';
 import FruitPage from './FruitPage';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchFruits }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(fruitActions, dispatch);
 
 const ConnectedFruitPage = connect(mapStateToProps, mapDispatchToProps)(FruitPage);
 console.log('index.js')
