@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Table as ForemanTable } from 'foremanReact/components/common/table';
 import { rows, columns } from './FruitTableSchema';
+import { fetchFruits } from './FruitActions';
 
 class FruitPage extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -14,9 +15,12 @@ class FruitPage extends Component {
 
   componentDidMount() {
     // Fetch data here
+    console.log('fruitsDidMount')
+    fetchFruits();
   }
 
   render() {
+    console.log(this.props)
     return (
       <ForemanTable
         rows={rows}

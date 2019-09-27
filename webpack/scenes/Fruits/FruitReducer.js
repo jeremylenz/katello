@@ -6,20 +6,22 @@ const defaultState = {
   results: [],
 };
 
-export default (state = defaultState, action) => {
+// eslint-disable-next-line import/prefer-default-export
+export const fruits = (state = defaultState, action) => {
   switch (action.type) {
     case GET_FRUITS_SUCCESS:
       return state.merge({
         loading: false,
       });
     case GET_FRUITS_REQUEST:
+      console.log('FRUITREDUCER')
       return state.merge({
         loading: true,
       });
     case GET_FRUITS_FAILURE:
       return state.merge({
         loading: false,
-        error: action.error,
+        errors: action.error,
       });
     case SET_FRUITS:
       return state.merge({

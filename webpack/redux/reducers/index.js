@@ -13,8 +13,10 @@ import { moduleStreamDetails } from '../../scenes/ModuleStreams/Details';
 import { reducers as systemStatuses } from '../../components/extensions/about';
 import { ansibleCollections } from '../../scenes/AnsibleCollections';
 import { ansibleCollectionDetails } from '../../scenes/AnsibleCollections/Details';
+import { fruits } from '../../scenes/Fruits/FruitReducer';
 
 export default combineReducers({
+  fruits,
   organization,
   redHatRepositories,
   subscriptions,
