@@ -1,10 +1,11 @@
 // Add Redux reducers here
+import Immutable from 'seamless-immutable';
 import { GET_FRUITS_SUCCESS, GET_FRUITS_REQUEST, GET_FRUITS_FAILURE, SET_FRUITS } from './FruitConstants';
 
-const defaultState = {
+const defaultState = Immutable({
   loading: false,
   results: [],
-};
+});
 
 // eslint-disable-next-line import/prefer-default-export
 export const fruits = (state = defaultState, action) => {
@@ -23,10 +24,12 @@ export const fruits = (state = defaultState, action) => {
         loading: false,
         errors: action.error,
       });
-    case SET_FRUITS:
+    case SET_FRUITS: {
+      const { results } = action.response;
       return state.merge({
-        results: action.payload,
+        results,
       });
+    }
     default:
       return state;
   }

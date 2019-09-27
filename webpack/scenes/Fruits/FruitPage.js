@@ -1,8 +1,8 @@
 // Edit this page to show the fruits table
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table as ForemanTable } from 'foremanReact/components/common/table';
-import { rows, columns } from './FruitTableSchema';
-import { fetchFruits } from './FruitActions';
+import { columns } from './FruitTableSchema';
 
 class FruitPage extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -16,18 +16,28 @@ class FruitPage extends Component {
   componentDidMount() {
     // Fetch data here
     console.log('fruitsDidMount')
-    fetchFruits();
+    this.props.fetchFruits();
   }
 
   render() {
-    console.log(this.props)
+    const { results } = this.props;
     return (
       <ForemanTable
-        rows={rows}
+        rows={results}
         columns={columns}
       />
     );
   }
 }
+
+FruitPage.propTypes = {
+  fetchFruits: PropTypes.func.isRequired,
+  results: PropTypes.arrayOf(PropTypes.object),
+};
+
+FruitPage.defaultProps = {
+  results: [],
+};
+
 
 export default FruitPage;
