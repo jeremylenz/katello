@@ -5,13 +5,15 @@ import * as fruitActions from './FruitActions';
 import FruitPage from './FruitPage';
 
 const mapStateToProps = state => ({
-  loading: state.loading,
-  results: state.results,
-  errors: state.errors,
+  loading: state.katello.fruits.loading,
+  results: state.katello.fruits.results,
+  errors: state.katello.fruits.errors,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(fruitActions, dispatch);
+const actions = {
+  ...fruitActions,
+};
 
-const ConnectedFruitPage = connect(mapStateToProps, mapDispatchToProps)(FruitPage);
-console.log('index.js')
-export default withRouter(ConnectedFruitPage);
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FruitPage));
