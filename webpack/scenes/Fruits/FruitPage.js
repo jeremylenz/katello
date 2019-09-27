@@ -1,34 +1,23 @@
 // Edit this page to show the fruits table
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Table as ForemanTable } from 'foremanReact/components/common/table';
 import { columns } from './FruitTableSchema';
 
-class FruitPage extends Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-    // Bonus: After completing your table,
-    // try adding local state here that can be changed when the user clicks a table cell!
-    // Or maybe a loading spinner or something.
-  }
+const FruitPage = (props) => {
+  const { results } = props;
 
-  componentDidMount() {
-    // Fetch data here
-    console.log('fruitsDidMount')
-    this.props.fetchFruits();
-  }
+  useEffect(() => {
+    if (!results.length) props.fetchFruits();
+  }, [props.fetchFruits, results.length]);
 
-  render() {
-    const { results } = this.props;
-    return (
-      <ForemanTable
-        rows={results}
-        columns={columns}
-      />
-    );
-  }
-}
+  return (
+    <ForemanTable
+      rows={results}
+      columns={columns}
+    />
+  );
+};
 
 FruitPage.propTypes = {
   fetchFruits: PropTypes.func.isRequired,
