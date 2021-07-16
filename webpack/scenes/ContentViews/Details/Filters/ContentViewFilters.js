@@ -39,7 +39,7 @@ const ContentViewFilters = ({ cvId }) => {
     __('Inclusion type'),
   ];
 
-  const buildRows = (results) => {
+  const buildRows = useCallback((results) => {
     const newRows = [];
     results.forEach((filter) => {
       let errataByDate = false;
@@ -64,7 +64,7 @@ const ContentViewFilters = ({ cvId }) => {
       newRows.push({ cells });
     });
     return newRows;
-  };
+  }, [cvId]);
 
   useDeepCompareEffect(() => {
     const { results, ...meta } = response;
@@ -74,7 +74,7 @@ const ContentViewFilters = ({ cvId }) => {
       const newRows = buildRows(results);
       setRows(newRows);
     }
-  }, [response]);
+  }, [response, loading, buildRows]);
   const emptyContentTitle = __("You currently don't have any filters for this content view.");
   const emptyContentBody = __("Add filters using the 'Add filter' button above."); // needs link
   const emptySearchTitle = __('No matching filters found');
