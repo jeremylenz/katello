@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Label } from '@patternfly/react-core';
@@ -75,12 +75,10 @@ const ContentViewFilters = ({ cvId }) => {
       setRows(newRows);
     }
   }, [response]);
-
   const emptyContentTitle = __("You currently don't have any filters for this content view.");
   const emptyContentBody = __("Add filters using the 'Add filter' button above."); // needs link
   const emptySearchTitle = __('No matching filters found');
   const emptySearchBody = __('Try changing your search settings.');
-
   return (
     <TableWrapper
       {...{
@@ -99,7 +97,7 @@ const ContentViewFilters = ({ cvId }) => {
       cells={columnHeaders}
       variant={TableVariant.compact}
       autocompleteEndpoint="/content_view_filters/auto_complete_search"
-      fetchItems={params => getContentViewFilters(cvId, params)}
+      fetchItems={useCallback(params => getContentViewFilters(cvId, params), [cvId])}
     />);
 };
 
