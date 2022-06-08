@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import React from 'react';
 import {
   EmptyState,
@@ -14,6 +13,7 @@ import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
 import { CubeIcon, ExclamationCircleIcon, SearchIcon, CheckCircleIcon } from '@patternfly/react-icons';
 import { global_danger_color_200 as dangerColor, global_success_color_100 as successColor } from '@patternfly/react-tokens';
+import { useDispatch } from 'react-redux';
 
 const KatelloEmptyStateIcon = ({
   error, search, customIcon, happyIcon,
@@ -26,13 +26,15 @@ const KatelloEmptyStateIcon = ({
 };
 
 const EmptyStateMessage = ({
-  title, body, error, search, customIcon, happy, ...extraTableProps
+  title, body, error, search,
+  customIcon, happy, ...extraTableProps
 }) => {
   let emptyStateTitle = title;
   let emptyStateBody = body;
   const {
     primaryActionTitle, showPrimaryAction, showSecondaryAction,
-    secondaryActionTitle, primaryActionLink, secondaryActionLink,
+    secondaryActionTitle, primaryActionLink, secondaryActionLink, searchIsActive, resetFilters,
+    updateSearchQuery, filtersAreActive, requestKey,
   } = extraTableProps;
   if (error) {
     if (error?.response?.data?.error) {
@@ -45,6 +47,20 @@ const EmptyStateMessage = ({
       emptyStateBody = error?.response?.data?.displayMessage || __('Something went wrong! Please check server logs!');
     }
   }
+  const secondaryActionText = searchIsActive ? __('Clear search') : __('Clear filters');
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    if (searchIsActive) {
+      updateSearchQuery('');
+    }
+    if (filtersAreActive) {
+      resetFilters();
+    }
+    dispatch({
+      type: `${requestKey}_REQUEST`,
+      key: requestKey,
+    });
+  };
   return (
     <Bullseye>
       <EmptyState
@@ -74,6 +90,13 @@ const EmptyStateMessage = ({
           </EmptyStateSecondaryActions>
         }
 
+        {(searchIsActive || !!filtersAreActive) &&
+        <EmptyStateSecondaryActions>
+          <Button variant="link" onClick={handleClick}>
+            {secondaryActionText}
+          </Button>
+        </EmptyStateSecondaryActions>
+        }
       </EmptyState>
     </Bullseye>
   );
@@ -104,8 +127,7 @@ EmptyStateMessage.propTypes = {
   search: PropTypes.bool,
   customIcon: PropTypes.elementType,
   happy: PropTypes.bool,
-  showPrimaryAction: PropTypes.bool,
-  showSecondaryAction: PropTypes.bool,
+  searchIsActive: PropTypes.bool,
 };
 
 EmptyStateMessage.defaultProps = {
@@ -115,8 +137,7 @@ EmptyStateMessage.defaultProps = {
   search: false,
   customIcon: undefined,
   happy: false,
-  showPrimaryAction: false,
-  showSecondaryAction: false,
+  searchIsActive: false,
 };
 
 export default EmptyStateMessage;

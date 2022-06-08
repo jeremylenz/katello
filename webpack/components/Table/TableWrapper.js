@@ -225,6 +225,7 @@ const TableWrapper = ({
         activeFilters={activeFilters}
         rowsCount={pageRowCount}
         emptySearchBody={emptySearchBody}
+        updateSearchQuery={updateSearchQuery}
         {...allTableProps}
       >
         {children}
@@ -302,6 +303,7 @@ TableWrapper.propTypes = {
   nodesBelowSearch: PropTypes.node,
   bookmarkController: PropTypes.string,
   readOnlyBookmarks: PropTypes.bool,
+  resetFilters: PropTypes.func,
 };
 
 TableWrapper.defaultProps = {
@@ -329,6 +331,7 @@ TableWrapper.defaultProps = {
   nodesBelowSearch: null,
   bookmarkController: undefined,
   readOnlyBookmarks: false,
+  resetFilters: undefined,
 };
 
 export default TableWrapper;

@@ -127,7 +127,6 @@ export const HostCollectionsModal = ({
       Cancel
     </Button>,
   ]);
-
   return (
     <Modal
       isOpen={isOpen}

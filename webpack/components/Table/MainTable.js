@@ -19,7 +19,9 @@ const MainTable = ({
   emptySearchTitle, emptySearchBody, errorSearchTitle, errorSearchBody,
   happyEmptyContent, searchIsActive, activeFilters, defaultFilters, actionButtons, rowsCount,
   children, showPrimaryAction, showSecondaryAction, primaryActionLink,
-  secondaryActionLink, primaryActionTitle, secondaryActionTitle, ...extraTableProps
+  secondaryActionLink, primaryActionTitle, secondaryActionTitle, resetFilters,
+  updateSearchQuery, requestKey,
+  ...extraTableProps
 }) => {
   const tableHasNoRows = () => {
     if (children) return rowsCount === 0;
@@ -32,11 +34,19 @@ const MainTable = ({
     primaryActionTitle,
     secondaryActionLink,
     secondaryActionTitle,
+    requestKey,
   };
   const filtersAreActive = activeFilters?.length &&
     !isEqual(new Set(activeFilters), new Set(defaultFilters));
   const isFiltering = searchIsActive || filtersAreActive;
   if (status === STATUS.PENDING) return (<Loading />);
+  const clearSearchProps = {
+    resetFilters,
+    searchIsActive,
+    updateSearchQuery,
+    filtersAreActive,
+    requestKey,
+  };
   // Can we display the error message?
   if (status === STATUS.ERROR) return (<EmptyStateMessage error={error} />);
 
@@ -54,7 +64,7 @@ const MainTable = ({
       title={emptySearchTitle}
       body={emptySearchBody}
       search
-      {...emptyStateProps}
+      {...clearSearchProps}
     />);
   }
   if (status === STATUS.RESOLVED && tableHasNoRows()) {
@@ -131,6 +141,9 @@ MainTable.propTypes = {
   secondaryActionLink: PropTypes.string,
   secondaryActionTitle: PropTypes.string,
   primaryActionTitle: PropTypes.string,
+  resetFilters: PropTypes.func,
+  updateSearchQuery: PropTypes.func,
+  requestKey: PropTypes.string,
 };
 
 MainTable.defaultProps = {
@@ -152,7 +165,9 @@ MainTable.defaultProps = {
   secondaryActionLink: '',
   primaryActionTitle: '',
   secondaryActionTitle: '',
-
+  resetFilters: undefined,
+  updateSearchQuery: undefined,
+  requestKey: '',
 };
 
 export default MainTable;

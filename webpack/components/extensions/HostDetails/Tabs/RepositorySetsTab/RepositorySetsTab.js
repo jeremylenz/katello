@@ -239,6 +239,10 @@ const RepositorySetsTab = () => {
 
   const hostDetailsStatus = useSelector(state => selectHostDetailsStatus(state));
 
+  const resetFilters = () => {
+    setStatusSelected(STATUS_LABEL);
+    setToggleGroupState(defaultToggleGroupState);
+  };
   useEffect(() => {
     // wait until host details are loaded to set alertShowing
     if (hostDetailsStatus === STATUS.RESOLVED) {
@@ -447,6 +451,7 @@ const RepositorySetsTab = () => {
             secondaryActionLink,
             primaryActionTitle,
             secondaryActionTitle,
+            resetFilters,
           }
           }
           ouiaId="host-repository-sets-table"
@@ -462,6 +467,7 @@ const RepositorySetsTab = () => {
           variant={TableVariant.compact}
           {...selectAll}
           displaySelectAllCheckbox={canDoContentOverrides}
+          requestKey={REPOSITORY_SETS_KEY}
         >
           <Thead>
             <Tr>
