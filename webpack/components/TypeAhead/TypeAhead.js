@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Downshift from 'downshift';
 import PropTypes from 'prop-types';
 import { translate as __ } from 'foremanReact/common/I18n';
@@ -16,8 +16,10 @@ const TypeAhead = ({
   isDisabled,
   onInputUpdate,
   onSearch,
+  inputValue,
+  setInputValue,
+  clearSearch,
   actionText,
-  initialInputValue,
   patternfly4,
   autoSearchEnabled,
   autoSearchDelay,
@@ -27,7 +29,7 @@ const TypeAhead = ({
   isTextInput,
   setTextInputValue,
 }) => {
-  const [inputValue, setInputValue] = useState(initialInputValue);
+  // const [inputValue, setInputValue] = useState(initialInputValue);
 
   const debouncedValue = useDebounce(inputValue, autoSearchDelay);
   useEffect(
@@ -43,11 +45,6 @@ const TypeAhead = ({
       setInputValue(value);
       if (setTextInputValue) setTextInputValue(value);
     }
-  };
-
-  const clearSearch = () => {
-    setInputValue('');
-    onSearch('');
   };
 
   const activeItems = getActiveItems(items);
@@ -124,6 +121,9 @@ TypeAhead.propTypes = {
   placeholder: PropTypes.string,
   isTextInput: PropTypes.bool,
   setTextInputValue: PropTypes.func,
+  inputValue: PropTypes.string,
+  setInputValue: PropTypes.func,
+  clearSearch: PropTypes.func,
 };
 
 TypeAhead.defaultProps = {
@@ -137,6 +137,9 @@ TypeAhead.defaultProps = {
   placeholder: undefined,
   isTextInput: false,
   setTextInputValue: undefined,
+  inputValue: '',
+  setInputValue: undefined,
+  clearSearch: undefined,
 };
 
 export default TypeAhead;

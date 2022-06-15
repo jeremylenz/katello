@@ -26,10 +26,18 @@ const Search = ({
   placeholder,
   isTextInput,
   setTextInputValue,
+  inputValue,
+  setInputValue,
+  clearSearch,
 }) => {
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
   const mountedRef = useRef(true);
+  const searchInputProps = {
+    inputValue,
+    setInputValue,
+    clearSearch,
+  };
 
   const onInputUpdate = async (searchTerm = '') => {
     const newItems = items.filter(({ text }) => stringIncludes(text, searchTerm));
@@ -90,6 +98,7 @@ const Search = ({
         items={items}
         onInputUpdate={onInputUpdate}
         onSearch={onNewSearch}
+        {...searchInputProps}
         initialInputValue={initialInputValue}
         patternfly4={patternfly4}
         autoSearchEnabled={autoSearchEnabled}
@@ -118,6 +127,9 @@ Search.propTypes = {
   placeholder: PropTypes.string,
   isTextInput: PropTypes.bool,
   setTextInputValue: PropTypes.func,
+  inputValue: PropTypes.string,
+  setInputValue: PropTypes.func,
+  clearSearch: PropTypes.func,
 };
 
 Search.defaultProps = {
@@ -134,6 +146,9 @@ Search.defaultProps = {
   placeholder: undefined,
   isTextInput: false,
   setTextInputValue: undefined,
+  inputValue: '',
+  setInputValue: undefined,
+  clearSearch: undefined,
 };
 
 export default Search;

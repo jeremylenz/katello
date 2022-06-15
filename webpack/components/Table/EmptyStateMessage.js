@@ -34,7 +34,7 @@ const EmptyStateMessage = ({
   const {
     primaryActionTitle, showPrimaryAction, showSecondaryAction,
     secondaryActionTitle, primaryActionLink, secondaryActionLink, searchIsActive, resetFilters,
-    updateSearchQuery, filtersAreActive, requestKey,
+    clearSearch, filtersAreActive, requestKey,
   } = extraTableProps;
   if (error) {
     if (error?.response?.data?.error) {
@@ -51,7 +51,7 @@ const EmptyStateMessage = ({
   const dispatch = useDispatch();
   const handleClick = () => {
     if (searchIsActive) {
-      updateSearchQuery('');
+      clearSearch();
     }
     if (filtersAreActive) {
       resetFilters();

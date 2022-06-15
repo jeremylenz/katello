@@ -20,7 +20,7 @@ const MainTable = ({
   happyEmptyContent, searchIsActive, activeFilters, defaultFilters, actionButtons, rowsCount,
   children, showPrimaryAction, showSecondaryAction, primaryActionLink,
   secondaryActionLink, primaryActionTitle, secondaryActionTitle, resetFilters,
-  updateSearchQuery, requestKey,
+  clearSearch, requestKey,
   ...extraTableProps
 }) => {
   const tableHasNoRows = () => {
@@ -43,7 +43,7 @@ const MainTable = ({
   const clearSearchProps = {
     resetFilters,
     searchIsActive,
-    updateSearchQuery,
+    clearSearch,
     filtersAreActive,
     requestKey,
   };
@@ -142,7 +142,7 @@ MainTable.propTypes = {
   secondaryActionTitle: PropTypes.string,
   primaryActionTitle: PropTypes.string,
   resetFilters: PropTypes.func,
-  updateSearchQuery: PropTypes.func,
+  clearSearch: PropTypes.func,
   requestKey: PropTypes.string,
 };
 
@@ -166,7 +166,7 @@ MainTable.defaultProps = {
   primaryActionTitle: '',
   secondaryActionTitle: '',
   resetFilters: undefined,
-  updateSearchQuery: undefined,
+  clearSearch: undefined,
   requestKey: '',
 };
 

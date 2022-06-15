@@ -14,6 +14,7 @@ import { getPageStats } from './helpers';
 import Search from '../../components/Search';
 import SelectAllCheckbox from '../SelectAllCheckbox';
 import { orgId } from '../../services/api';
+import { useSearchInputValue } from '../TypeAhead/TypeAheadHooks';
 
 /* Patternfly 4 table wrapper */
 const TableWrapper = ({
@@ -161,6 +162,17 @@ const TableWrapper = ({
     paginationChangePending.current = pagData;
   };
 
+  const {
+    inputValue,
+    setInputValue,
+    clearSearch,
+  } = useSearchInputValue(updateSearchQuery, searchQuery);
+  const searchInputProps = {
+    inputValue,
+    setInputValue,
+    clearSearch,
+  };
+
   return (
     <>
       <Flex style={{ alignItems: 'center' }} className="margin-16-24">
@@ -186,8 +198,8 @@ const TableWrapper = ({
             <Search
               isDisabled={unresolvedStatusOrNoRows && !searchQuery}
               patternfly4
-              initialInputValue={searchQuery && searchQuery}
-              onSearch={search => updateSearchQuery(search)}
+              onSearch={updateSearchQuery}
+              {...searchInputProps}
               getAutoCompleteParams={getAutoCompleteParams}
               foremanApiAutoComplete={foremanApiAutoComplete}
               bookmarkController={bookmarkController}
@@ -225,7 +237,7 @@ const TableWrapper = ({
         activeFilters={activeFilters}
         rowsCount={pageRowCount}
         emptySearchBody={emptySearchBody}
-        updateSearchQuery={updateSearchQuery}
+        clearSearch={clearSearch}
         {...allTableProps}
       >
         {children}
