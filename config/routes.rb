@@ -19,6 +19,8 @@ Katello::Engine.routes.draw do
   match '/subscriptions' => 'react#index', :via => [:get]
   match '/subscriptions/*page' => 'react#index', :via => [:get]
 
+  match '/host_collections' => 'react#index', :via => [:get]
+
   match '/module_streams' => 'react#index', :via => [:get]
   match '/module_streams/*page' => 'react#index', :via => [:get]
 

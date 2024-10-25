@@ -1,18 +1,5 @@
 angular.module('Bastion.host-collections').config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('host-collections', {
-        url: '/host_collections',
-        permission: 'view_host_collections',
-        views: {
-            '@': {
-                controller: 'HostCollectionsController',
-                templateUrl: 'host-collections/views/host-collections.html'
-            }
-        },
-        ncyBreadcrumb: {
-            label: "{{ 'Host Collections' | translate }}"
-        }
-    })
-    .state('host-collections.new', {
+    $stateProvider.state('host-collections.new', {
         url: '/new',
         permission: 'create_host_collections',
         views: {

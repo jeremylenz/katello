@@ -68,6 +68,14 @@ angular.module('Bastion.routing', ['ui.router', 'ui.router.state.events']);
             // Remove the old browser path if present
             url = url.replace(oldBrowserBastionPath, '');
 
+            // Allow React to handle specific paths
+            var reactPaths = [
+                '/host_collections',
+            ]
+            if (reactPaths.includes(rootPath)) {
+                return;
+            }
+
             if (rootPath) {
                 foundParentState = _.find($state.get(), function (state) {
                     var found = false,

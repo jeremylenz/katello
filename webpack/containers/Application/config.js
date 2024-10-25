@@ -36,7 +36,7 @@ export const links = [
     component: WithOrganization(withHeader(ActivationKeyDetails, { title: __('Activation key details') })),
   },
   {
-    path: 'labs/host_collections',
+    path: 'host_collections',
     component: WithOrganization(withHeader(HostCollections, { title: __('Host collections') })),
   },
   {
