@@ -196,7 +196,7 @@ Foreman::Plugin.register :katello do
   menu :top_menu,
        :host_collections,
        :caption => N_('Host Collections'),
-       :url => '/host_collections',
+       :url => '/labs/host_collections',
        :url_hash => {:controller => 'katello/api/v2/host_collections',
                      :action => 'index'},
        :engine => Katello::Engine,

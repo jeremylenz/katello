@@ -5,11 +5,11 @@ node :id do |host_collection|
 end
 
 extends "katello/api/v2/common/timestamps"
+extends "katello/api/v2/host_collections/resource_permissions"
 
 node :permissions do |host_collection|
   {
     :deletable => host_collection.deletable?,
-    :editable => host_collection.editable?
-
+    :editable => host_collection.editable?,
   }
 end

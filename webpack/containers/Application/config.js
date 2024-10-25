@@ -4,6 +4,7 @@ import Subscriptions from '../../scenes/Subscriptions';
 import UpstreamSubscriptions from '../../scenes/Subscriptions/UpstreamSubscriptions/index';
 import SubscriptionDetails from '../../scenes/Subscriptions/Details';
 import ActivationKeyDetails from '../../scenes/ActivationKeys/Details/ActivationKeyDetails';
+import HostCollections from '../../scenes/HostCollections';
 import SetOrganization from '../../components/SelectOrg/SetOrganization';
 import WithOrganization from '../../components/WithOrganization/withOrganization';
 import ModuleStreams from '../../scenes/ModuleStreams';
@@ -33,6 +34,10 @@ export const links = [
   {
     path: 'labs/activation_keys/:id',
     component: WithOrganization(withHeader(ActivationKeyDetails, { title: __('Activation key details') })),
+  },
+  {
+    path: 'labs/host_collections',
+    component: WithOrganization(withHeader(HostCollections, { title: __('Host collections') })),
   },
   {
     // eslint-disable-next-line no-useless-escape
